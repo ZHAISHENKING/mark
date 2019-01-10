@@ -1,0 +1,31 @@
+<html>
+    <style>
+
+    </style>
+    <body>
+
+    <form action="{{ url_for('api.mark') }}" method="post">
+        标题:<input type="text" name="title" placeholder="标题"><br>
+        方法:
+        <select name="method">
+            <option value="GET">GET</option>
+            <option value="POST">POST</option>
+        </select>
+        <div>
+            <span>URL:</span>
+            <select name="url" id="">
+                {% for i in url_list%}
+                    <option value="{{i}}">{{i}}</option>
+                {% endfor %}
+            </select>
+            <input type="text" placeholder="路由" name="path">
+        </div>
+        输入:
+        <textarea name="input" id="in" cols="500" rows="10"></textarea>
+        输出:
+        <textarea name="output" id="out" cols="500" rows="10"></textarea>
+
+        <button>提交</button>
+    </form>
+    </body>
+</html>
