@@ -56,10 +56,11 @@ class CreateMarkAPI(Resource):
 
 ```json
 {}
+```
 </pre>
-```"""
+
+"""
 
         result = result.format(data["title"], data["method"], return_url+data["path"], data["input"], data["output"])
-        print(result)
-        return make_response(result)
+        return make_response(render_template("result.html", a=result))
 

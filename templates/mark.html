@@ -1,31 +1,86 @@
-<html>
-    <style>
-
-    </style>
-    <body>
-
-    <form action="{{ url_for('api.mark') }}" method="post">
-        标题:<input type="text" name="title" placeholder="标题"><br>
-        方法:
-        <select name="method">
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            API生成插件
+        </div>
+        <div class="panel-body">
+            <form action="{{ url_for('api.mark') }}" method="post" class="form-horizontal">
+    <div class="form-group">
+        <label for="InputTitle" class="col-sm-2 control-label">标题:</label>
+        <div class="col-sm-6">
+                 <input type="text" name="title" placeholder="标题" class="form-control" id="InputTitle"><br>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Method" class="col-sm-2 control-label">方法:</label>
+        <div class="col-sm-6">
+            <select name="method" class="form-control" id="Method">
             <option value="GET">GET</option>
             <option value="POST">POST</option>
-        </select>
-        <div>
-            <span>URL:</span>
-            <select name="url" id="">
-                {% for i in url_list%}
-                    <option value="{{i}}">{{i}}</option>
-                {% endfor %}
             </select>
-            <input type="text" placeholder="路由" name="path">
         </div>
-        输入:
-        <textarea name="input" id="in" cols="500" rows="10"></textarea>
-        输出:
-        <textarea name="output" id="out" cols="500" rows="10"></textarea>
 
-        <button>提交</button>
+
+    </div>
+
+    <div class="form-group">
+            <label for="InputUrl" class="col-sm-2 control-label">URL:</label>
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-md-4">
+                     <select name="url" class="form-control " id="InputUrl">
+                    {% for i in url_list%}
+                        <option value="{{i}}">{{i}}</option>
+                    {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-md-8">
+                    <input type="text" placeholder="路由" name="path" class="form-control">
+                </div>
+
+            </div>
+        </div>
+
+
+
+    </div>
+    <div class="form-group">
+        <label for="in" class="col-sm-2 control-label">输入:</label>
+        <div class="col-sm-6">
+                    <textarea name="input" id="in" class="form-control well well-lg" rows="3"></textarea>
+
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="out" class="col-sm-2 control-label">输出:</label>
+        <div class="col-sm-6">
+                    <textarea name="output" id="out" class="form-control well well-lg" rows="3"></textarea>
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-1">
+            <button type="submit" class="btn btn-primary btn-lg">提交</button>
+        </div>
+    </div>
+
     </form>
-    </body>
+        </div>
+
+    </div>
+</div>
+</body>
 </html>
