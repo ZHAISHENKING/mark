@@ -15,7 +15,7 @@ try:
 except Exception:
     pass
 
-blueprints = ['routes:uploadApi']
+blueprints = ['routes:uploadApi', "routes:viewApi"]
 
 admin.add_view(MarkView(name=u"接口"))
 admin.add_view(URLView(name=u"路由配置"))
