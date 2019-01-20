@@ -46,9 +46,13 @@ class Login(Resource):
     def __init__(self):
         self.form = LoginForm(request.form)
 
+    def get(self):
+        return make_response(render_template('login.html'))
+
     @catch_exception
     def post(self):
         data = request.values
+        print(data["username"])
         username = data["username"]
         password = data["password"]
         if not username or not password:

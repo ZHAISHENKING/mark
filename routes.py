@@ -16,3 +16,4 @@ docs.add_resource(LoginView, '/login/', endpoint="login")                       
 docs.add_resource(LogoutView, '/logout/', endpoint="logout")                                    # 后台退出登录
 view.add_resource(CreateMarkAPI, '/mark', endpoint="mark")
 view.add_resource(Register, '/reg', endpoint="reg")
+view.add_resource(Login, '/login', endpoint="login")

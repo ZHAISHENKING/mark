@@ -29,16 +29,15 @@ class CreateMarkAPI(Resource):
         url_config = data["url"]
         url = UrlConfig.objects.get(name=url_config)
         return_url = "%s://%s/%s" % (url["prefix"], url["host"], url["api"])
-        print(return_url)
-        # mark = Mark(
-        #     title=data["title"],
-        #     url=url,
-        #     input=data["input"],
-        #     path=data["path"],
-        #     output=data["output"],
-        #     create_at=int(time.time())
-        # )
-        # mark.save()
+        mark = Mark(
+            title=data["title"],
+            url=url,
+            input=data["input"],
+            path=data["path"],
+            output=data["output"],
+            create_at=int(time.time())
+        )
+        mark.save()
         result = """
         <pre>
 # {}
