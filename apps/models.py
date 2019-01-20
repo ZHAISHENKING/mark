@@ -23,4 +23,5 @@ class Mark(db.Document):
     path = db.StringField()
     input = db.StringField()
     output = db.StringField()
+    err_output = db.StringField()
     create_at = db.IntField(default=int(time.time()))

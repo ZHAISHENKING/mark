@@ -35,6 +35,7 @@ class CreateMarkAPI(Resource):
             input=data["input"],
             path=data["path"],
             output=data["output"],
+            err_output=data["err_output"],
             create_at=int(time.time())
         )
         mark.save()
@@ -45,13 +46,19 @@ class CreateMarkAPI(Resource):
 
 `{}` **{}**
 
-输入
+**参数**
 
 ```json
 {}
 ```
 
-输出
+**成功回调**
+
+```json
+{}
+```
+
+**失败回调**
 
 ```json
 {}
@@ -60,6 +67,6 @@ class CreateMarkAPI(Resource):
 
 """
 
-        result = result.format(data["title"], data["method"], return_url+data["path"], data["input"], data["output"])
+        result = result.format(data["title"], data["method"], return_url+data["path"], data["input"], data["output"], data["err_output"])
         return make_response(render_template("result.html", a=result))
 
