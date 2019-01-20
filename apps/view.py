@@ -19,8 +19,15 @@ class URLView(ModelView):
     自定义视图
     """
     column_list = (
-        "prefix", "host", "api"
+       "name", "prefix", "host", "api"
     )
+
+    column_labels = {
+        "name": "接口名称",
+        "prefix": "协议",
+        "host": "域名",
+        "api": "路径"
+    }
 
     def __init__(self, **kwargs):
         super(URLView, self).__init__(UrlConfig, **kwargs)

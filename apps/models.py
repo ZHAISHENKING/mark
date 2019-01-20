@@ -6,11 +6,11 @@ class UrlConfig(db.Document):
     """
     url配置
     """
-    name = db.StringField()
-    prefix = db.StringField()
-    host = db.StringField()
-    api = db.StringField()
-    create_at = db.IntField()
+    name = db.StringField(verbose_name="接口名称")
+    prefix = db.StringField(verbose_name="协议")
+    host = db.StringField(verbose_name="域名")
+    api = db.StringField(verbose_name="接口地址")
+    create_at = db.IntField(verbose_name="创建时间")
 
 
 class Mark(db.Document):
