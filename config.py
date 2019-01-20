@@ -27,7 +27,7 @@ class Config(object):
 class DevConfig(Config):
     DEBUG = True
     MONGODB_SETTINGS = {
-        'db': 'demo',
+        'db': 'mark',
         'host': 'localhost'
     }
 
@@ -35,7 +35,7 @@ class DevConfig(Config):
 class PrdConfig(Config):
     DEBUG = False
     MONGODB_SETTINGS = {
-        'db': 'demo',
+        'db': 'mark',
         'host': 'localhost',
         'port': PORT,
         "username": NAME,

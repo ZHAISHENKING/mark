@@ -12,7 +12,6 @@ from wtforms import form, fields, validators
 from flask_restful import Resource
 import flask_login as login
 from flask_limiter import Limiter
-from flask_wechatpy import Wechat
 from flask_limiter.util import get_remote_address
 from flask_admin.contrib.mongoengine import ModelView
 import redis
@@ -23,7 +22,6 @@ limiter = Limiter(
     # default_limits=["7 per day"]
 )
 db = MongoEngine()
-wechat = Wechat()
 
 
 class AdminUser(db.Document):

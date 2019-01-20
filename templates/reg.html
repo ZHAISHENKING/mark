@@ -1,0 +1,43 @@
+{% extends "home.html" %}
+
+{% block body %}
+<div class="container">
+   <div class="center-block">
+        <div class="row">
+        <div class="col-xs-6 col-md-4"></div>
+        <div class="col-xs-6 col-md-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    注册
+                </div>
+                <div class="panel-body">
+                    <form action="{{url_for('index.reg')}}" method="post">
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">账号</label>
+                        <input name="username" type="text" class="form-control" id="exampleInputEmail1" placeholder="请输入账号">
+                      </div>
+                        <div class="form-group">
+                        <label for="email">邮箱</label>
+                        <input name="email" type="text" class="form-control" id="email" placeholder="请输入邮箱">
+                      </div>
+                      <div class="form-group">
+                          <label for="code">验证码</label>
+                          <input type="text" name="code" class="form-control" id="code" placeholder="请输入验证码"><img
+                              src="data:image/png;base64,{{code}}" alt="">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">密码</label>
+                        <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="请输入密码">
+                      </div>
+
+                      <button type="submit" class="btn btn-primary">注册</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-md-4"></div>
+    </div>
+   </div>
+
+</div>
+{% endblock %}

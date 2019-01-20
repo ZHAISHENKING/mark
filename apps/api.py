@@ -9,7 +9,7 @@ from flask import request, make_response, render_template
 from bson.objectid import ObjectId
 from flask import redirect, current_app, Response, send_from_directory
 from flask_restful import Resource
-from util.common import trueReturn, falseReturn, ms, catch_exception
+from utils.common import trueReturn, falseReturn, ms, catch_exception
 from .models import Mark, UrlConfig
 from mongoengine.queryset.visitor import Q
 import html
