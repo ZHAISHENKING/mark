@@ -1,18 +1,12 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
-import requests
-import bson.binary
-import bson.objectid
-import bson.errors
+
 import time
 from flask import request, make_response, render_template
-from bson.objectid import ObjectId
-from flask import redirect, current_app, Response, send_from_directory
+
 from flask_restful import Resource
-from utils.common import trueReturn, falseReturn, ms, catch_exception
+from utils.common import catch_exception
 from .models import Mark, UrlConfig
-from mongoengine.queryset.visitor import Q
-import html
 
 
 class CreateMarkAPI(Resource):
@@ -44,7 +38,7 @@ class CreateMarkAPI(Resource):
 # {}
 ----
 
-`{}` **{}**
+**{}**  `{}`
 
 **参数**
 
