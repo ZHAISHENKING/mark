@@ -18,5 +18,5 @@ graphic-verification-code==1.0.2
 mongoengine==0.15.3
 PyJWT==1.6.3
 pymongo==3.7.1
-requests==2.19.1
+requests
 redis
