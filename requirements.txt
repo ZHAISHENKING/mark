@@ -1,5 +1,5 @@
 Flask==1.0.2
-Flask-Admin==1.5.1
+Flask-Admin
 Flask-API==1.0
 Flask-BabelEx==0.9.3
 Flask-Cache==0.13.1
@@ -18,5 +18,5 @@ graphic-verification-code==1.0.2
 mongoengine==0.15.3
 PyJWT==1.6.3
 pymongo==3.7.1
-requests==2.19.1
+requests
 redis
