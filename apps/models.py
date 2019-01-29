@@ -19,6 +19,7 @@ class Mark(db.Document):
     """
     title = db.StringField(verbose_name='标题')
     method = db.StringField(verbose_name="方法")
+    func = db.StringField(verbose_name="功能")
     url = db.ReferenceField(UrlConfig, verbose_name='路由', reverse_delete_rule=2)
     path = db.StringField()
     input = db.StringField()

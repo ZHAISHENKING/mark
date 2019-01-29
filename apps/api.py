@@ -26,6 +26,7 @@ class CreateMarkAPI(Resource):
         mark = Mark(
             title=data["title"],
             url=url,
+            func=data["func"],
             input=data["input"],
             path=data["path"],
             output=data["output"],
@@ -39,6 +40,10 @@ class CreateMarkAPI(Resource):
 ----
 
 **{}**  `{}`
+
+**对应功能**
+
+<center><img src="{}" width=500 /></center>
 
 **参数**
 
@@ -61,6 +66,6 @@ class CreateMarkAPI(Resource):
 
 """
 
-        result = result.format(data["title"], data["method"], return_url+data["path"], data["input"], data["output"], data["err_output"])
+        result = result.format(data["title"], data["method"], return_url+data["path"],data["func"], data["input"], data["output"], data["err_output"])
         return make_response(render_template("result.html", a=result))
 
