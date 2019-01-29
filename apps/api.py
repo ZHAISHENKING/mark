@@ -35,15 +35,10 @@ class CreateMarkAPI(Resource):
         )
         mark.save()
         result = """
-        <pre>
 # {}
 ----
 
 **{}**  `{}`
-
-**对应功能**
-
-<center><img src="{}" width=500 /></center>
 
 **参数**
 
@@ -62,10 +57,8 @@ class CreateMarkAPI(Resource):
 ```json
 {}
 ```
-</pre>
-
 """
 
-        result = result.format(data["title"], data["method"], return_url+data["path"],data["func"], data["input"], data["output"], data["err_output"])
-        return make_response(render_template("result.html", a=result))
+        result = result.format(data["title"], data["method"], return_url+data["path"], data["input"], data["output"], data["err_output"])
+        return make_response(render_template("result.html", a=result, func=data["func"]))
 
