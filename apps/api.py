@@ -63,7 +63,13 @@ class CreateMarkAPI(Resource):
         return make_response(render_template("result.html", a=result, func=data["func"]))
 
 
-class CreateApp(Resource):
-
+class Nav(Resource):
     def get(self):
         return make_response(render_template('nav.html'))
+
+
+class AppApi(Resource):
+    def get(self):
+        return make_response(render_template("apps.html"))
+
+
