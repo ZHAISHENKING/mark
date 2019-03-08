@@ -1,7 +1,7 @@
 from flask import Blueprint
 from flask_restful import Api
 from admin import Index, LogoutView, LoginView
-from apps.api import CreateMarkAPI
+from apps.api import CreateMarkAPI, CreateApp
 from users.api import Register, Login
 
 
@@ -17,3 +17,4 @@ docs.add_resource(LogoutView, '/logout/', endpoint="logout")                    
 view.add_resource(CreateMarkAPI, '/mark', endpoint="mark")
 view.add_resource(Register, '/reg', endpoint="reg")
 view.add_resource(Login, '/login', endpoint="login")
+view.add_resource(CreateApp, '/app', endpoint="app")

@@ -62,3 +62,8 @@ class CreateMarkAPI(Resource):
         result = result.format(data["title"], data["method"], return_url+data["path"], data["input"], data["output"], data["err_output"])
         return make_response(render_template("result.html", a=result, func=data["func"]))
 
+
+class CreateApp(Resource):
+
+    def get(self):
+        return make_response(render_template('nav.html'))

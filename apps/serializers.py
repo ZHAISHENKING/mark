@@ -1,0 +1,1 @@
+from marshmallow_mongoengine import ModelSchema, fields
