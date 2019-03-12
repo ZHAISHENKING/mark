@@ -67,6 +67,27 @@
     $table.bootstrapTable({data: data})
     $('#modalTable').on('shown.bs.modal', function () {
       $table.bootstrapTable('resetView')
+        $stable.bootstrapTable({
+          data: data
+        })
     })
   })
+</script>
+<script>
+    function randomData() {
+        var startId = ~~(Math.random() * 100)
+        var rows = []
+
+        for (var i = 0; i < 10; i++) {
+          rows.push({
+            id: startId + i,
+            name: 'test' + (startId + i),
+            price: '$' + (startId + i)
+          })
+        }
+        return rows
+      }
+      function typeFormatter(value) {
+        return '<button class="btn btn-secondary">' + value + '</button>'
+      }
 </script>

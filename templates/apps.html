@@ -2,7 +2,7 @@
 
 {% block body %}
 <div class="container">
-<table id="table" class="table-dark">
+<table id="table">
   <thead>
     <tr>
       <th data-field="id">ID</th>
@@ -12,8 +12,10 @@
   </thead>
 </table>
     <!-- Large modal -->
-<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalTable">
-  Launch modal table
+        <a href="#" class="btn btn-danger btn-lg" role="button">提交</a>
+
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modalTable">
+  添加
 </button>
 <div id="modalTable" class="modal fade" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
@@ -28,40 +30,36 @@
         <table id="stable"
           data-toggle="stable"
           data-height="299"
-          data-url="json/data1.json">
+          >
           <thead>
             <tr>
               <th data-field="id">ID</th>
-              <th data-field="name">Item Name</th>
-              <th data-field="price">Item Price</th>
+              <th data-field="name">字段名</th>
+              <th data-field="field_type" data-formatter="typeFormatter">字段类型</th>
+              <th data-field="fk">关联外键</th>
+              <th data-field="verbose">字段别名</th>
+
+            </tr>
+            <tr>
+              <td data-field="id">1</td>
+              <td data-field="name">"aa"</td>
+              <td data-field="field_type" data-formatter="typeFormatter">字段类型</td>
+              <td data-field="fk">关联外键</td>
+              <td data-field="verbose">字段别名</td>
+
             </tr>
           </thead>
         </table>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
       </div>
     </div>
   </div>
 </div>
-    <a href="#" class="btn btn-primary btn-lg" role="button">添加</a>
-    <a href="#" class="btn btn-default btn-lg" role="button">取消</a>
+    <a href="#" class="btn btn-secondary btn-lg" role="button">取消</a>
+
 </div>
 
 
 {% endblock %}
-<script>
-    function randomData() {
-    var startId = ~~(Math.random() * 100)
-    var rows = []
-
-    for (var i = 0; i < 10; i++) {
-      rows.push({
-        id: startId + i,
-        name: 'test' + (startId + i),
-        price: '$' + (startId + i)
-      })
-    }
-    return rows
-  }
-</script>
