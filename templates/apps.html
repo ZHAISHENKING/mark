@@ -3,7 +3,7 @@
 {% block body %}
 <div class="container">
 <table id="table">
-  <thead>
+  <thead class="thead-dark">
     <tr>
       <th data-field="id">ID</th>
       <th data-field="name">Table Name</th>
@@ -18,7 +18,7 @@
   添加
 </button>
 <div id="modalTable" class="modal fade" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Modal table</h5>
@@ -33,21 +33,13 @@
           >
           <thead>
             <tr>
-              <th data-field="id">ID</th>
-              <th data-field="name">字段名</th>
+              <th data-field="name" data-formatter="nameFormatter">字段名</th>
               <th data-field="field_type" data-formatter="typeFormatter">字段类型</th>
-              <th data-field="fk">关联外键</th>
-              <th data-field="verbose">字段别名</th>
+              <th data-field="fk" data-formatter="nameFormatter">关联外键</th>
+              <th data-field="verbose" data-formatter="nameFormatter">字段别名</th>
 
             </tr>
-            <tr>
-              <td data-field="id">1</td>
-              <td data-field="name">"aa"</td>
-              <td data-field="field_type" data-formatter="typeFormatter">字段类型</td>
-              <td data-field="fk">关联外键</td>
-              <td data-field="verbose">字段别名</td>
 
-            </tr>
           </thead>
         </table>
       </div>
@@ -62,4 +54,62 @@
 </div>
 
 
+<script>
+  var $table = $('#table')
+  $('#myModal').modal()
+  var $stable = $('#stable')
+
+  $(function() {
+    var data = [
+      {
+        'id': 0,
+        'name': 'Item 0',
+        'price': '$0'
+      },
+      {
+        'id': 1,
+        'name': 'Item 1',
+        'price': '$1'
+      },
+      {
+        'id': 2,
+        'name': 'Item 2',
+        'price': '$2'
+      },
+      {
+        'id': 3,
+        'name': 'Item 3',
+        'price': '$3'
+      },
+      {
+        'id': 4,
+        'name': 'Item 4',
+        'price': '$4'
+      },
+      {
+        'id': 5,
+        'name': 'Item 5',
+        'price': '$5'
+      }
+    ]
+    $table.bootstrapTable({data: data})
+    $('#modalTable').on('shown.bs.modal', function () {
+      $table.bootstrapTable('resetView')
+        $stable.bootstrapTable({
+          data: data
+        })
+    })
+  })
+
+  function typeFormatter(value) {
+    return '<select>' +
+        '<option value="0">StringField</option>' +
+        '</select>'
+  }
+  function nameFormatter() {
+      return '<input type="text">'
+  }
+</script>
+
 {% endblock %}
+
