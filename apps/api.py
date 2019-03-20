@@ -91,19 +91,18 @@ class SubmitTable(Resource):
         errors = schema.validate(data)
         if errors:
             return error_return(10000, str(errors), "")
-        fields = deepcopy(data)
-        data.pop("field")
+
         table = schema.load(data)
-
-        table.data.save()
         table = table.data
-        for i in fields:
-            field = Field(**i)
-            field.save()
-            table.fields.append(field)
-
-        result = TableSchema().dump(table).data
-        return trueReturn(result)
+        table.save()
+        print(table.verbose)
+        # for i in data["field"]:
+        #     field = Field(**i)
+        #     field.save()
+        #     table.fields.append(field)
+        # table.save()
+        # result = TableSchema().dump(table).data
+        # return trueReturn(result)
 
 
 class SubmitApp(Resource):
