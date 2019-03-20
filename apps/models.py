@@ -47,3 +47,11 @@ class Field(db.Document):
     field_type = db.IntField(choice=FIELD_CHOICE, verbose_name="字段类型")
     fk_table = db.StringField(verbose_name="关联表")
     many = db.BooleanField(verbose_name="多对多")
+
+
+class DIYApp(db.Document):
+    """
+    app
+    """
+    name = db.StringField()
+    table_list = db.ListField(db.ReferenceField("Table"), verbose_name="表格")

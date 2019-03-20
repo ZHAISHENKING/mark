@@ -3,10 +3,11 @@
 
 import time
 from flask import request, make_response, render_template
-
+from copy import deepcopy
 from flask_restful import Resource
-from utils.common import catch_exception
-from .models import Mark, UrlConfig
+from utils.common import catch_exception, error_return, trueReturn
+from .models import Mark, UrlConfig, Field, Table, DIYApp
+from .serializers import SubmitTableSchema, DIYAppSchema, TableSchema
 
 
 class CreateMarkAPI(Resource):
@@ -73,3 +74,72 @@ class AppApi(Resource):
         return make_response(render_template("apps.html"))
 
 
+class SubmitTable(Resource):
+    """
+    提交表格,类型为单个对象
+    example:
+    {
+        "table_name": "aa",
+        "verbose_name": "bb",
+        "field": []
+    }
+    """
+    @catch_exception
+    def post(self):
+        data = request.json
+        schema = SubmitTableSchema()
+        errors = schema.validate(data)
+        if errors:
+            return error_return(10000, str(errors), "")
+        fields = deepcopy(data)
+        data.pop("field")
+        table = schema.load(data)
+
+        table.data.save()
+        table = table.data
+        for i in fields:
+            field = Field(**i)
+            field.save()
+            table.fields.append(field)
+
+        result = TableSchema().dump(table).data
+        return trueReturn(result)
+
+
+class SubmitApp(Resource):
+    """
+    更新app
+    :param: str app_id
+    :param: list table_list
+    {
+        "app_id": "xx",
+        "table_list": ["xx", "xx"]
+    }
+    """
+    @catch_exception
+    def post(self):
+        data = request.json
+        schema = DIYAppSchema()
+        errors = schema.validate(data)
+        if errors:
+            return error_return(10000, str(errors), "")
+        table_list = Table.objects(pk__in=data["table_list"])
+        app = DIYApp.objects.with_id(data["app_id"])
+        app.update(table_list=table_list)
+        result = schema.dump(app).data
+        return trueReturn(result)
+
+
+class CreateApp(Resource):
+    """
+    创建app
+    :param: name
+    """
+    @catch_exception
+    def post(self):
+        data = request.json
+        diy = DIYApp(**data)
+        diy.save()
+        schema = DIYAppSchema()
+        result = schema.dump(diy).data
+        return trueReturn(result)

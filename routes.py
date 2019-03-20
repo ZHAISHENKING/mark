@@ -1,7 +1,7 @@
 from flask import Blueprint
 from flask_restful import Api
 from admin import Index, LogoutView, LoginView
-from apps.api import CreateMarkAPI, Nav, AppApi
+from apps.api import CreateMarkAPI, Nav, AppApi, CreateApp, SubmitTable, SubmitApp
 from users.api import Register, Login
 
 
@@ -19,3 +19,6 @@ view.add_resource(Register, '/reg', endpoint="reg")
 view.add_resource(Login, '/login', endpoint="login")
 view.add_resource(Nav, '/nav', endpoint="nav")
 view.add_resource(AppApi, '/app', endpoint="app")
+docs.add_resource(CreateApp, '/create/app', endpoint="create_app")
+docs.add_resource(SubmitTable, '/add/table', endpoint="add_table")
+docs.add_resource(SubmitApp, '/update/app', endpoint="update_app")
