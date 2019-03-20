@@ -4,9 +4,9 @@ from flask_cors import CORS
 from routes import docs
 from config import config
 from werkzeug.utils import import_string
-from apps.models import db, UrlConfig, Mark
+from apps.models import db, UrlConfig, Mark, DIYApp, Table, Field
 from flask_babelex import Babel
-from admin import admin, AdminUser, login, limiter
+from admin import admin, AdminUser, login, limiter, ModelView
 from apps.view import MarkView, URLView
 from production import *
 
@@ -19,7 +19,9 @@ blueprints = ['routes:uploadApi', "routes:viewApi"]
 
 admin.add_view(MarkView(name=u"接口"))
 admin.add_view(URLView(name=u"路由配置"))
-
+admin.add_view(ModelView(DIYApp, name="app"))
+admin.add_view(ModelView(Table, name="表"))
+admin.add_view(ModelView(Field, name="字段"))
 
 # 初始化app
 def create_app(config_name):

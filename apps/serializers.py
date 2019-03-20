@@ -14,7 +14,6 @@ class TableSchema(ModelSchema):
 class SubmitTableSchema(TableSchema):
     table_name = fd.String(required=True, load_only=True, attribute="name")
     verbose_name = fd.String(required=True, load_only=True, attribute="verbose")
-    field = fd.Nested("FieldSchema", many=True, attribute="fields")
 
 
 class FieldSchema(ModelSchema):
@@ -25,7 +24,7 @@ class FieldSchema(ModelSchema):
 
 class DIYAppSchema(ModelSchema):
     app_id = fd.String(required=True)
-    table_list = fd.Nested("TableSchema", many=True)
+    table_list = fd.Nested("TableSchema", many=True, dump_only=True)
 
     class Meta:
         model_skip_values = ()

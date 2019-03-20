@@ -94,15 +94,16 @@ class SubmitTable(Resource):
 
         table = schema.load(data)
         table = table.data
+
         table.save()
-        print(table.verbose)
-        # for i in data["field"]:
-        #     field = Field(**i)
-        #     field.save()
-        #     table.fields.append(field)
-        # table.save()
-        # result = TableSchema().dump(table).data
-        # return trueReturn(result)
+
+        for i in data["field"]:
+            field = Field(**i)
+            field.save()
+            table.fields.append(field)
+        table.save()
+        result = TableSchema().dump(table).data
+        return trueReturn(result)
 
 
 class SubmitApp(Resource):
@@ -122,9 +123,10 @@ class SubmitApp(Resource):
         errors = schema.validate(data)
         if errors:
             return error_return(10000, str(errors), "")
-        table_list = Table.objects(pk__in=data["table_list"])
+        table_list = Table.objects.filter(pk__in=data["table_list"])
         app = DIYApp.objects.with_id(data["app_id"])
         app.update(table_list=table_list)
+        app.reload()
         result = schema.dump(app).data
         return trueReturn(result)
 
