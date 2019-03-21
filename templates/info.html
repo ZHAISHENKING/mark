@@ -1,0 +1,69 @@
+{% extends "home.html" %}
+
+{% block body %}
+<div class="jumbotron">
+    <pre>## {{info.name}}</pre>
+
+<pre>
+### models.py
+```python
+from admin import db
+
+{% for i in info.table_list %}
+class {{i.name}}(db.Document):
+    """{{i.verbose}}"""{% for j in i.fields %}
+    {% if j.many %}{{j.name}} = db.ListField(db.{{choice[j.field_type]}}({% if j.fk_table %}"{{j.fk_table}}"{% endif %}), verbose_name="{{j.verbose}}")
+    {% else %}{{j.name}} = db.{{choice[j.field_type]}}(verbose_name="{{j.verbose}}"){% endif %}{% endfor %}
+
+    class Meta:
+        verbose_name = {{i.verbose}}
+{% endfor %}
+```
+</pre>
+
+
+<pre>
+### serializers.py
+```python
+from marshmallow_mongoengine import ModelSchema
+from marshmallow_mongoengine import fields as fd
+from .models import {% for i in info.table_list %}{{i.name}}{% endfor %}
+{% for i in info.table_list %}
+class {{i.name}}Schema(ModelSchema):
+    """{{i.verbose}}"""{% for j in i.fields %}{% if j.many %}
+    {{j.name}} = fd.Nested("{{j.fk_table}}Schema", many=True){% endif %}{% endfor %}
+
+    class Meta:
+        model_skip_values = ()
+        model = {{i.name | capitalize}}
+
+{% endfor %}
+```
+</pre>
+
+<pre>
+### view.py
+```python
+from .models import {% for i in info.table_list %}{{i.name}}{% endfor %}
+{% for i in info.table_list %}
+class {{i.name}}View(ModelView):
+
+    column_lables = {
+       {% for j in i.fields %}"{{ j.name }}": "{{ j.verbose }}",
+       {% endfor %}
+    }
+
+    def is_accessible(self):
+        return login.current_user.is_authenticated
+
+    def __init__(self, **kwargs):
+        super({{i.name}}View, self).__init__({{i.name}}, **kwargs)
+
+{% endfor %}
+```
+</pre>
+
+
+</div>
+
+{% endblock %}

@@ -4,6 +4,7 @@
 import time
 from flask import request, make_response, render_template
 from copy import deepcopy
+from utils.constant import FIELD_CHOICE
 from flask_restful import Resource
 from utils.common import catch_exception, error_return, trueReturn
 from .models import Mark, UrlConfig, Field, Table, DIYApp
@@ -144,3 +145,13 @@ class CreateApp(Resource):
         schema = DIYAppSchema()
         result = schema.dump(diy).data
         return trueReturn(result)
+
+
+class GetApp(Resource):
+    """获取app"""
+    def get(self):
+        data = request.args
+        diy = DIYApp.objects.with_id(data["id"])
+        schema = DIYAppSchema()
+        info = schema.dump(diy).data
+        return make_response(render_template('info.html', info=info, choice=FIELD_CHOICE))
