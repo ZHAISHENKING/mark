@@ -3,7 +3,6 @@
 
 import time
 from flask import request, make_response, render_template
-from copy import deepcopy
 from utils.constant import FIELD_CHOICE
 from flask_restful import Resource
 from utils.common import catch_exception, error_return, trueReturn
@@ -72,7 +71,7 @@ class Nav(Resource):
 
 class AppApi(Resource):
     def get(self):
-        return make_response(render_template("apps.html"))
+        return make_response(render_template("apps.html", fields=FIELD_CHOICE))
 
 
 class SubmitTable(Resource):

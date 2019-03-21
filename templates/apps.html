@@ -102,8 +102,13 @@
   })
 
   function typeFormatter(value) {
+
+
+
     return '<select>' +
-        '<option value="0">StringField</option>' +
+            '{% for i in fields %}' +
+        '<option value="{{i}}">{{fields[i]}}</option>' +
+            '{% endfor %}' +
         '</select>'
   }
   function nameFormatter() {
