@@ -2,7 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 import time
-from flask import request, make_response, render_template
+from flask import request, make_response, render_template, url_for, redirect
 from utils.constant import FIELD_CHOICE
 from flask_restful import Resource
 from utils.common import catch_exception, error_return, trueReturn
@@ -71,7 +71,10 @@ class Nav(Resource):
 
 class AppApi(Resource):
     def get(self):
-        return make_response(render_template("apps.html", fields=FIELD_CHOICE))
+        name = request.args["name"]
+        app = DIYApp.objects(name=name).first()
+        result = DIYAppSchema().dump(app).data
+        return make_response(render_template("apps.html", fields=FIELD_CHOICE, app=result))
 
 
 class SubmitTable(Resource):
@@ -142,8 +145,7 @@ class CreateApp(Resource):
         schema = DIYAppSchema()
         diy = schema.load(data).data
         diy.save()
-        result = schema.dump(diy).data
-        return make_response(render_template("apps.html", app=result))
+        return redirect(url_for('index.app', name=diy.name))
 
 
 class GetApp(Resource):
@@ -153,4 +155,4 @@ class GetApp(Resource):
         diy = DIYApp.objects.with_id(data["id"])
         schema = DIYAppSchema()
         info = schema.dump(diy).data
-        return make_response(render_template('info.html', info=info, choice=FIELD_CHOICE))
+        return trueReturn(info)

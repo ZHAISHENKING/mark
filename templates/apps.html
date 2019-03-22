@@ -3,7 +3,7 @@
 {% block body %}
 <div class="container">
   <h4>{{app.name}}</h4>
-<table id="table">
+<table id="table" data-toggle="table">
   <thead class="thead-dark">
     <tr>
       <th data-field="id">ID</th>
@@ -11,13 +11,25 @@
       <th data-field="verbose">Verbose Name</th>
     </tr>
   </thead>
+  <tbody>
+          {% for i in app.table_list %}
+
+              <tr>
+                <td  data-field="id">{{i.id}}</td>
+              <td data-field="name">{{i.name}}</td>
+              <td data-field="verbose">{{i.verbose}}</td>
+              </tr>
+            {% endfor %}
+    </tbody>
 </table>
     <!-- Large modal -->
-        <a href="#" class="btn btn-danger btn-lg" role="button">提交</a>
+        <div class="col-sm-10">
+          <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#modalTable">提交</button>
 
-        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modalTable">
-  添加
-</button>
+          <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modalTable">添加</button>
+          <button class="btn btn-secondary btn-lg" >取消</button>
+        </div>
+
 <div id="modalTable" class="modal fade" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -37,22 +49,46 @@
               <th data-field="name" data-formatter="nameFormatter">字段名</th>
               <th data-field="field_type" data-formatter="typeFormatter">字段类型</th>
               <th data-field="fk" data-formatter="nameFormatter">关联外键</th>
+              <th data-field="many" data-formatter="nameFormatter">是否多选</th>
               <th data-field="verbose" data-formatter="nameFormatter">字段别名</th>
-
             </tr>
 
           </thead>
         </table>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">提交</button>
+        <button type="button" class="btn btn-primary" >提交</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
       </div>
     </div>
   </div>
 </div>
-    <a href="#" class="btn btn-secondary btn-lg" role="button">取消</a>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLabel">创建app</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 
+      </div>
+
+        <form method="post" action="{{ url_for('api.create_app') }}">
+              <div class="form-group modal-body">
+                <label for="name" class="control-label">app名:</label>
+                <input type="text" class="form-control" id="name" name="name">
+              </div>
+
+
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">点击创建</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </form>
+
+
+    </div>
+  </div>
+</div>
 </div>
 
 
@@ -104,16 +140,13 @@
   })
 
   function typeFormatter(value) {
-
-
-
     return '<select>' +
             '{% for i in fields %}' +
         '<option value="{{i}}">{{fields[i]}}</option>' +
             '{% endfor %}' +
         '</select>'
   }
-  function nameFormatter() {
+  function nameFormatter(value) {
       return '<input type="text">'
   }
 </script>
