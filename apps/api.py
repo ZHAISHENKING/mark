@@ -138,12 +138,12 @@ class CreateApp(Resource):
     """
     @catch_exception
     def post(self):
-        data = request.json
-        diy = DIYApp(**data)
-        diy.save()
+        data = request.values
         schema = DIYAppSchema()
+        diy = schema.load(data).data
+        diy.save()
         result = schema.dump(diy).data
-        return trueReturn(result)
+        return make_response(render_template("apps.html", app=result))
 
 
 class GetApp(Resource):

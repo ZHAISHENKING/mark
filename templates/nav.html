@@ -6,11 +6,38 @@
       <h1>开始创建你的app吧!</h1>
       <p>如果你正在使用Flask+MongoEngine开发那再合适不过了，另外使用flask-admin的话就更完美了</p>
     <p>
-    <a class="btn btn-primary btn-lg" href="/app" role="button">
+    <a class="btn btn-primary btn-lg" data-toggle="modal" data-target="#exampleModal" role="button">
       <span class="glyphicon glyphicon-arrow-right" aria-hidden="true">开始创建😄</span>
     </a>
   </p>
   </div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLabel">创建app</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+      </div>
+
+        <form method="post" action="{{ url_for('api.create_app') }}">
+              <div class="form-group modal-body">
+                <label for="name" class="control-label">app名:</label>
+                <input type="text" class="form-control" id="name" name="name">
+              </div>
+
+
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">点击创建</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </form>
+
+
+    </div>
+  </div>
+</div>
 </div>
 
 {% endblock %}
