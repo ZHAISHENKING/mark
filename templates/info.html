@@ -8,6 +8,7 @@
 ### models.py
 ```python
 from admin import db
+from datetime import datetime
 
 {% for i in info.table_list %}
 class {{i.name}}(db.Document):
@@ -17,7 +18,7 @@ class {{i.name}}(db.Document):
     {% else %}{{j.name}} = db.{{choice[j.field_type]}}(verbose_name="{{j.verbose}}"){% endif %}{% endfor %}
 
     class Meta:
-        verbose_name = {{i.verbose}}
+        verbose_name = "{{i.verbose}}"
 {% endfor %}
 ```
 </pre>
