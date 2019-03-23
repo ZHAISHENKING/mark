@@ -15,6 +15,7 @@ class {{i.name}}(db.Document):
     """{{i.verbose}}"""{% for j in i.fields %}
     {% if j.many %}{{j.name}} = db.ListField(db.{{choice[j.field_type]}}({% if j.fk_table %}"{{j.fk_table}}"{% endif %}), verbose_name="{{j.verbose}}")
     {% elif j.field_type==3 %}{{j.name}} = db.{{choice[j.field_type]}}(verbose_name="{{j.verbose}}", default=datetime.now)
+    {% elif j.field_type==9 %}{{j.name}} = db.{{choice[j.field_type]}}("{{j.fk_table}}", verbose_name="{{j.verbose}}")
     {% else %}{{j.name}} = db.{{choice[j.field_type]}}(verbose_name="{{j.verbose}}"){% endif %}{% endfor %}
 
     class Meta:
@@ -29,7 +30,7 @@ class {{i.name}}(db.Document):
 ```python
 from marshmallow_mongoengine import ModelSchema
 from marshmallow_mongoengine import fields as fd
-from .models import {% for i in info.table_list %}{{i.name}}{% endfor %}
+from .models import {% for i in info.table_list %}{{i.name}},{% endfor %}
 {% for i in info.table_list %}
 class {{i.name}}Schema(ModelSchema):
     """{{i.verbose}}"""{% for j in i.fields %}{% if j.many %}
@@ -46,11 +47,13 @@ class {{i.name}}Schema(ModelSchema):
 <pre>
 ### view.py
 ```python
-from .models import {% for i in info.table_list %}{{i.name}}{% endfor %}
+from .models import {% for i in info.table_list %}{{i.name}},{% endfor %}
+from admin import ModelView, login
+
 {% for i in info.table_list %}
 class {{i.name}}View(ModelView):
     column_display_pk = True
-    column_lables = {
+    column_labels = {
        {% for j in i.fields %}"{{ j.name }}": "{{ j.verbose }}",
        {% endfor %}
     }
