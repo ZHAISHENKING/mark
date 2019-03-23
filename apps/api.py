@@ -155,4 +155,4 @@ class GetApp(Resource):
         diy = DIYApp.objects.with_id(data["id"])
         schema = DIYAppSchema()
         info = schema.dump(diy).data
-        return trueReturn(info)
+        return make_response(render_template('info.html', info=info, choice=FIELD_CHOICE))

@@ -13,6 +13,7 @@ from admin import db
 class {{i.name}}(db.Document):
     """{{i.verbose}}"""{% for j in i.fields %}
     {% if j.many %}{{j.name}} = db.ListField(db.{{choice[j.field_type]}}({% if j.fk_table %}"{{j.fk_table}}"{% endif %}), verbose_name="{{j.verbose}}")
+    {% elif j.field_type==3 %}{{j.name}} = db.{{choice[j.field_type]}}(verbose_name="{{j.verbose}}", default=datetime.now)
     {% else %}{{j.name}} = db.{{choice[j.field_type]}}(verbose_name="{{j.verbose}}"){% endif %}{% endfor %}
 
     class Meta:
@@ -47,7 +48,7 @@ class {{i.name}}Schema(ModelSchema):
 from .models import {% for i in info.table_list %}{{i.name}}{% endfor %}
 {% for i in info.table_list %}
 class {{i.name}}View(ModelView):
-
+    column_display_pk = True
     column_lables = {
        {% for j in i.fields %}"{{ j.name }}": "{{ j.verbose }}",
        {% endfor %}
